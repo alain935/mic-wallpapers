@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" href="favicon.png">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -397,6 +397,128 @@
             transform: rotate(90deg);
         }
 
+        /* Contact Modal Styles */
+        .contact-modal {
+            width: 90%;
+            max-width: 500px;
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .contact-modal {
+            transform: scale(1);
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-header h2 {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #6C63FF, #FF6B9D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .contact-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(108, 99, 255, 0.1);
+            transform: translateX(10px);
+            border-color: rgba(108, 99, 255, 0.3);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .email-icon { background: linear-gradient(135deg, #EA4335, #FBBC05); }
+        .telegram-icon { background: linear-gradient(135deg, #0088cc, #00aced); }
+        .instagram-icon { background: linear-gradient(135deg, #833AB4, #E1306C, #F77737); }
+        .phone-icon { background: linear-gradient(135deg, #25D366, #128C7E); }
+        .whatsapp-icon { background: linear-gradient(135deg, #25D366, #128C7E); }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 5px;
+        }
+
+        .contact-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: white;
+        }
+
+        .contact-copy {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .contact-copy:hover {
+            background: #6C63FF;
+            transform: scale(1.1);
+        }
+
+        .contact-note {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
         footer {
             background: rgba(5, 5, 15, 0.98);
             padding: 50px 0 30px;
@@ -442,6 +564,8 @@
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             transition: color 0.3s;
+            cursor: pointer;
+            font-weight: 500;
         }
 
         .footer-link:hover {
@@ -484,6 +608,26 @@
                 width: 50px;
                 height: 50px;
                 font-size: 1.1rem;
+            }
+            
+            .contact-modal {
+                padding: 25px;
+                margin: 20px;
+            }
+            
+            .contact-item {
+                padding: 12px;
+                gap: 15px;
+            }
+            
+            .contact-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .contact-value {
+                font-size: 1rem;
             }
         }
 
@@ -629,6 +773,95 @@
         </div>
     </div>
 
+    <!-- Contact Modal -->
+    <div class="modal-overlay" id="contact-modal">
+        <div class="close-modal" id="close-contact-modal">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="contact-modal">
+            <div class="contact-header">
+                <h2>Contact D.A. Bruce</h2>
+                <p>Get in touch for inquiries, collaborations, or support</p>
+            </div>
+            
+            <div class="contact-info">
+                <!-- Email -->
+                <div class="contact-item">
+                    <div class="contact-icon email-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">brucealain123@gmail.com</div>
+                    </div>
+                    <button class="contact-copy" data-text="brucealain123@gmail.com" title="Copy email">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+
+                <!-- Telegram -->
+                <div class="contact-item">
+                    <div class="contact-icon telegram-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Telegram</div>
+                        <div class="contact-value">+250 792 682 482</div>
+                    </div>
+                    <button class="contact-copy" data-text="+250792682482" title="Copy Telegram">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+
+                <!-- Instagram -->
+                <div class="contact-item">
+                    <div class="contact-icon instagram-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Instagram</div>
+                        <div class="contact-value">_a.lain_</div>
+                    </div>
+                    <button class="contact-copy" data-text="_a.lain_" title="Copy Instagram">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+
+                <!-- Phone -->
+                <div class="contact-item">
+                    <div class="contact-icon phone-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">+250 792 682 482</div>
+                    </div>
+                    <button class="contact-copy" data-text="+250792682482" title="Copy phone number">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="contact-item">
+                    <div class="contact-icon whatsapp-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">WhatsApp</div>
+                        <div class="contact-value">+250 792 682 482</div>
+                    </div>
+                    <button class="contact-copy" data-text="+250792682482" title="Copy WhatsApp">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="contact-note">
+                Click the copy button to copy contact information to clipboard
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -639,9 +872,9 @@
                     <span>2025 Made by D.A. Bruce</span>
                 </div>
                 <div class="footer-links">
-                    <a href="#" class="footer-link">Privacy Policy</a>
-                    <a href="#" class="footer-link">Terms of Service</a>
-                    <a href="#" class="footer-link">Contact</a>
+                    <a href="#" class="footer-link" id="privacy-link">Privacy Policy</a>
+                    <a href="#" class="footer-link" id="terms-link">Terms of Service</a>
+                    <a href="#" class="footer-link" id="contact-link">Contact</a>
                 </div>
             </div>
         </div>
@@ -674,6 +907,12 @@
         const modalDescription = document.getElementById('modal-description');
         const modalDownloadBtn = document.getElementById('modal-download');
         const modalFullscreenBtn = document.getElementById('modal-fullscreen');
+        const contactModal = document.getElementById('contact-modal');
+        const closeContactModal = document.getElementById('close-contact-modal');
+        const contactLink = document.getElementById('contact-link');
+        const privacyLink = document.getElementById('privacy-link');
+        const termsLink = document.getElementById('terms-link');
+        const copyButtons = document.querySelectorAll('.contact-copy');
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
@@ -700,11 +939,66 @@
             modalDownloadBtn.addEventListener('click', downloadCurrentImage);
             modalFullscreenBtn.addEventListener('click', toggleFullscreen);
             
-            // Close modal on Escape key
+            // Contact modal events
+            contactLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openContactModal();
+            });
+            
+            closeContactModal.addEventListener('click', closeContactModalFunc);
+            contactModal.addEventListener('click', (e) => {
+                if (e.target === contactModal) closeContactModalFunc();
+            });
+            
+            // Privacy and Terms links (placeholder)
+            privacyLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showNotification('Privacy Policy page coming soon!', 'info');
+            });
+            
+            termsLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showNotification('Terms of Service page coming soon!', 'info');
+            });
+            
+            // Copy buttons
+            copyButtons.forEach(button => {
+                button.addEventListener('click', copyToClipboard);
+            });
+            
+            // Close modals on Escape key
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeImageModal();
+                if (e.key === 'Escape') {
+                    closeImageModal();
+                    closeContactModalFunc();
+                }
             });
         });
+
+        // Open contact modal
+        function openContactModal() {
+            contactModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close contact modal
+        function closeContactModalFunc() {
+            contactModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(e) {
+            const text = e.currentTarget.getAttribute('data-text');
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    showNotification('Copied to clipboard!', 'success');
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                    showNotification('Failed to copy. Please try manually.', 'error');
+                });
+        }
 
         // Handle search
         function handleSearch() {
@@ -977,12 +1271,6 @@
                 setTimeout(() => notification.remove(), 300);
             }, 4000);
         }
-
-        // Where to find downloads:
-        // - Windows: C:\Users\[YourUsername]\Downloads
-        // - Mac: /Users/[YourUsername]/Downloads  
-        // - Linux: /home/[YourUsername]/Downloads
-        // You can also check your browser's download history (Ctrl+J in most browsers)
     </script>
 </body>
 </html>
