@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MICWALLPAPERS | Premium Wallpaper Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(100, 100, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: #6C63FF;
+            filter: drop-shadow(0 0 10px rgba(108, 99, 255, 0.5));
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #6C63FF, #FF6B9D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .logo-sub {
+            font-size: 0.8rem;
+            color: #aaa;
+            letter-spacing: 3px;
+            margin-top: 2px;
+        }
+
+        .search-container {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 20px;
+        }
+
+        #search-input {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-right: none;
+        }
+
+        #search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        #search-btn {
+            padding: 14px 30px;
+            background: linear-gradient(90deg, #6C63FF, #4A43D4);
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            border-left: none;
+        }
+
+        #search-btn:hover {
+            background: linear-gradient(90deg, #4A43D4, #6C63FF);
+            transform: translateY(-1px);
+        }
+
+        main {
+            padding: 40px 0;
+            min-height: 70vh;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+        }
+
+        .category-btn:hover {
+            background: rgba(108, 99, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(90deg, #6C63FF, #4A43D4);
+            border-color: #6C63FF;
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .wallpapers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .wallpaper-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            height: 280px;
+            position: relative;
+            border: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .wallpaper-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(108, 99, 255, 0.3);
+        }
+
+        .wallpaper-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .wallpaper-card:hover .wallpaper-img {
+            transform: scale(1.1);
+        }
+
+        .wallpaper-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
+            padding: 25px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .wallpaper-card:hover .wallpaper-info {
+            transform: translateY(0);
+        }
+
+        .photographer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .photographer i {
+            color: #6C63FF;
+            font-size: 1.2rem;
+        }
+
+        .quick-download-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quick-download-btn:hover {
+            background: #6C63FF;
+            transform: scale(1.1);
+        }
+
+        .wallpaper-card:hover .quick-download-btn {
+            opacity: 1;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.3rem;
+            color: #6C63FF;
+            grid-column: 1/-1;
+        }
+
+        .load-more-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #load-more {
+            padding: 16px 50px;
+            background: linear-gradient(90deg, #6C63FF, #4A43D4);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+        }
+
+        #load-more:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(108, 99, 255, 0.3);
+            background: linear-gradient(90deg, #4A43D4, #6C63FF);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            padding: 30px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .modal-actions {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 3;
+        }
+
+        .modal-btn {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.3rem;
+        }
+
+        .modal-btn:hover {
+            background: #6C63FF;
+            transform: scale(1.1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: #ff4444;
+            transform: rotate(90deg);
+        }
+
+        footer {
+            background: rgba(5, 5, 15, 0.98);
+            padding: 50px 0 30px;
+            text-align: center;
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .footer-brand {
+            font-size: 1.5rem;
+            color: #6C63FF;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .copyright i {
+            color: #6C63FF;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #6C63FF;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .logo-container {
+                margin-bottom: 10px;
+            }
+            
+            .search-container {
+                max-width: 100%;
+                margin: 10px 0;
+                order: 3;
+                width: 100%;
+            }
+            
+            .wallpapers-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .modal-actions {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .modal-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 3000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+        }
+
+        .notification.info {
+            background: rgba(33, 150, 243, 0.9);
+            color: white;
+        }
+
+        .notification.success {
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+        }
+
+        .notification.error {
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+        }
+
+        .notification.warning {
+            background: rgba(255, 152, 0, 0.9);
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="logo-text">
+                        <div class="logo-main">MICWALLPAPERS</div>
+                        <div class="logo-sub">PREMIUM COLLECTION</div>
+                    </div>
+                </div>
+                
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search wallpapers...">
+                    <button id="search-btn"><i class="fas fa-search"></i> Search</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="categories">
+            <button class="category-btn active" data-category="minimal">Minimal</button>
+            <button class="category-btn" data-category="abstract">Abstract</button>
+            <button class="category-btn" data-category="cyberpunk">Cyberpunk</button>
+            <button class="category-btn" data-category="nature">Nature</button>
+            <button class="category-btn" data-category="space">Space</button>
+            <button class="category-btn" data-category="gradient">Gradient</button>
+            <button class="category-btn" data-category="dark">Dark</button>
+            <button class="category-btn" data-category="geometric">Geometric</button>
+        </div>
+
+        <div class="wallpapers-container" id="wallpapers-container">
+            <div class="loading" id="loading">
+                <i class="fas fa-spinner fa-spin"></i> Loading premium wallpapers...
+            </div>
+        </div>
+
+        <div class="load-more-container">
+            <button id="load-more" class="hidden">Load More Wallpapers</button>
+        </div>
+    </main>
+
+    <!-- Image Modal -->
+    <div class="modal-overlay" id="image-modal">
+        <div class="close-modal" id="close-modal">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="modal-content">
+            <div class="modal-actions">
+                <button class="modal-btn" id="modal-download" title="Download">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button class="modal-btn" id="modal-fullscreen" title="Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+            <img class="modal-image" id="modal-image" src="" alt="">
+            <div class="modal-info">
+                <div class="photographer">
+                    <i class="fas fa-camera"></i>
+                    <span id="modal-photographer"></span>
+                </div>
+                <p id="modal-description"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">MIC WALLPAPERS</div>
+                <p>Discover the world's most beautiful wallpapers</p>
+                <div class="copyright">
+                    <i class="far fa-copyright"></i>
+                    <span>2025 Made by D.A. Bruce</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API Configuration
+        const API_KEY = 'xrqZyUcfpEMp1Mjt12mRYV7GLewG81O29tMpsfWwplAaL74xOfDRQxfT';
+        const BASE_URL = 'https://api.pexels.com/v1/';
+        
+        // Global variables
+        let currentPage = 1;
+        let currentQuery = 'minimal wallpaper';
+        let isLoading = false;
+        let totalResults = 0;
+        let loadedResults = 0;
+        let currentImageData = null;
+
+        // DOM Elements
+        const wallpapersContainer = document.getElementById('wallpapers-container');
+        const loadMoreBtn = document.getElementById('load-more');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const loadingElement = document.getElementById('loading');
+        const imageModal = document.getElementById('image-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalPhotographer = document.getElementById('modal-photographer');
+        const modalDescription = document.getElementById('modal-description');
+        const modalDownloadBtn = document.getElementById('modal-download');
+        const modalFullscreenBtn = document.getElementById('modal-fullscreen');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchWallpapers(currentQuery);
+            
+            // Event Listeners
+            searchBtn.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleSearch();
+            });
+            
+            loadMoreBtn.addEventListener('click', loadMoreWallpapers);
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => handleCategoryClick(btn));
+            });
+            
+            // Modal events
+            closeModal.addEventListener('click', closeImageModal);
+            imageModal.addEventListener('click', (e) => {
+                if (e.target === imageModal) closeImageModal();
+            });
+            
+            modalDownloadBtn.addEventListener('click', downloadCurrentImage);
+            modalFullscreenBtn.addEventListener('click', toggleFullscreen);
+            
+            // Close modal on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeImageModal();
+            });
+        });
+
+        // Handle search
+        function handleSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                currentQuery = query + ' wallpaper';
+                currentPage = 1;
+                resetWallpapers();
+                fetchWallpapers(currentQuery);
+            }
+        }
+
+        // Handle category click
+        function handleCategoryClick(btn) {
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            let category = btn.dataset.category;
+            currentQuery = category === 'minimal' ? 'minimal wallpaper' : `${category} wallpaper`;
+            currentPage = 1;
+            resetWallpapers();
+            fetchWallpapers(currentQuery);
+        }
+
+        // Reset wallpapers container
+        function resetWallpapers() {
+            wallpapersContainer.innerHTML = '';
+            loadingElement.classList.remove('hidden');
+            loadMoreBtn.classList.add('hidden');
+            loadedResults = 0;
+        }
+
+        // Fetch wallpapers from Pexels API
+        async function fetchWallpapers(query, page = 1) {
+            if (isLoading) return;
+            
+            isLoading = true;
+            loadingElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading premium wallpapers...';
+            
+            try {
+                const perPage = 16;
+                const url = `${BASE_URL}search?query=${encodeURIComponent(query)}&per_page=${perPage}&page=${page}&orientation=landscape`;
+                
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': API_KEY
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Update total results
+                if (page === 1) {
+                    totalResults = data.total_results;
+                }
+                
+                // Process and display photos
+                displayWallpapers(data.photos);
+                loadedResults += data.photos.length;
+                
+                // Show/hide load more button
+                if (loadedResults < totalResults && data.photos.length > 0) {
+                    loadMoreBtn.classList.remove('hidden');
+                } else {
+                    loadMoreBtn.classList.add('hidden');
+                }
+                
+            } catch (error) {
+                console.error('Error fetching wallpapers:', error);
+                wallpapersContainer.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #ff6b6b;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3.5rem; margin-bottom: 25px;"></i>
+                        <h2 style="margin-bottom: 15px;">Error Loading Wallpapers</h2>
+                        <p style="color: rgba(255,255,255,0.7); margin-bottom: 10px;">${error.message}</p>
+                        <p style="color: rgba(255,255,255,0.5);">Please try again or check your connection</p>
+                    </div>
+                `;
+            } finally {
+                isLoading = false;
+                loadingElement.classList.add('hidden');
+            }
+        }
+
+        // Display wallpapers in the grid
+        function displayWallpapers(photos) {
+            if (photos.length === 0) {
+                wallpapersContainer.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
+                        <i class="fas fa-search" style="font-size: 3.5rem; margin-bottom: 25px; color: #6C63FF;"></i>
+                        <h2 style="margin-bottom: 15px;">No Wallpapers Found</h2>
+                        <p style="color: rgba(255,255,255,0.7);">Try a different search term or category</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            photos.forEach(photo => {
+                const wallpaperCard = document.createElement('div');
+                wallpaperCard.className = 'wallpaper-card';
+                
+                // Use larger image for better quality
+                const imageUrl = photo.src.large2x || photo.src.large;
+                
+                wallpaperCard.innerHTML = `
+                    <img src="${imageUrl}" alt="${photo.alt}" class="wallpaper-img" loading="lazy">
+                    <div class="wallpaper-info">
+                        <div class="photographer">
+                            <i class="fas fa-camera"></i>
+                            <span>${photo.photographer}</span>
+                        </div>
+                        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">${photo.alt.substring(0, 70)}${photo.alt.length > 70 ? '...' : ''}</p>
+                    </div>
+                    <button class="quick-download-btn" title="Download" onclick="event.stopPropagation(); downloadImage('${photo.src.original}', '${generateFilename(photo.alt)}')">
+                        <i class="fas fa-download"></i>
+                    </button>
+                `;
+                
+                // Add click to open modal
+                wallpaperCard.addEventListener('click', () => {
+                    openImageModal(photo);
+                });
+                
+                wallpapersContainer.appendChild(wallpaperCard);
+            });
+        }
+
+        // Open image modal
+        function openImageModal(photo) {
+            currentImageData = photo;
+            modalImage.src = photo.src.original;
+            modalPhotographer.textContent = photo.photographer;
+            modalDescription.textContent = photo.alt;
+            imageModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close image modal
+        function closeImageModal() {
+            imageModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            setTimeout(() => {
+                modalImage.src = '';
+            }, 300);
+        }
+
+        // Download current image from modal
+        function downloadCurrentImage() {
+            if (currentImageData) {
+                downloadImage(currentImageData.src.original, generateFilename(currentImageData.alt));
+            }
+        }
+
+        // Toggle fullscreen
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                imageModal.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Load more wallpapers
+        function loadMoreWallpapers() {
+            currentPage++;
+            fetchWallpapers(currentQuery, currentPage);
+        }
+
+        // Generate clean filename
+        function generateFilename(altText) {
+            return altText
+                .replace(/[^\w\s-]/gi, '')
+                .replace(/\s+/g, '-')
+                .toLowerCase()
+                .substring(0, 40) + '-micwallpapers';
+        }
+
+        // Fixed Download Function using your provided script
+        async function downloadImage(imageUrl, fileName) {
+            // Add .jpg extension if not present
+            if (!fileName.toLowerCase().endsWith('.jpg') && !fileName.toLowerCase().endsWith('.jpeg')) {
+                fileName += '.jpg';
+            }
+            
+            showNotification('Starting download...', 'info');
+            
+            try {
+                showNotification('Downloading image...', 'info');
+                
+                // Fetch the image
+                const response = await fetch(imageUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch image: ${response.status}`);
+                }
+                
+                // Convert to blob
+                const blob = await response.blob();
+                
+                // Create object URL
+                const url = window.URL.createObjectURL(blob);
+                
+                // Create download link
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = fileName;
+                
+                // Append to body and trigger download
+                document.body.appendChild(a);
+                a.click();
+                
+                // Clean up
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                // Show success message
+                showNotification('Wallpaper downloaded successfully! Check your Downloads folder.', 'success');
+                
+            } catch (error) {
+                console.error("Download failed:", error);
+                
+                // Show error message with helpful info
+                let errorMessage = 'Download failed. ';
+                
+                if (error.message.includes('CORS') || error.message.includes('cross-origin')) {
+                    errorMessage += 'Try right-clicking the image and selecting "Save image as..."';
+                } else if (error.message.includes('Failed to fetch')) {
+                    errorMessage += 'Network error. Check your connection.';
+                } else {
+                    errorMessage += 'Please try again.';
+                }
+                
+                showNotification(errorMessage, 'error');
+                
+                // Fallback: Open image in new tab for manual download
+                setTimeout(() => {
+                    if (confirm('Direct download failed. Would you like to open the image in a new tab to save it manually?')) {
+                        window.open(imageUrl, '_blank');
+                    }
+                }, 1500);
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => existingNotification.remove(), 300);
+            }
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 4 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
+
+        // Where to find downloads:
+        // - Windows: C:\Users\[YourUsername]\Downloads
+        // - Mac: /Users/[YourUsername]/Downloads  
+        // - Linux: /home/[YourUsername]/Downloads
+        // You can also check your browser's download history (Ctrl+J in most browsers)
+    </script>
+</body>
+</html>
